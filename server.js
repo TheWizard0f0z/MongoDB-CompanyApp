@@ -7,6 +7,18 @@ const employeesRoutes = require('./routes/employees.routes');
 const departmentsRoutes = require('./routes/departments.routes');
 const productsRoutes = require('./routes/products.routes');
 
+mongoClient.connect(
+  'mongodb://localhost:27017',
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  (err, client) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('Successfully connected to the database');
+    }
+  }
+);
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

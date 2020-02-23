@@ -14,6 +14,9 @@ mongoClient.connect(
       console.log(err);
     } else {
       console.log('Successfully connected to the database');
+
+      const db = client.db('companyDB');
+
       const app = express();
 
       app.use(cors());

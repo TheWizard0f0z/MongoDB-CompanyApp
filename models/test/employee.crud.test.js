@@ -10,7 +10,7 @@ describe('Employee', () => {
 
       const uri = await fakeDB.getConnectionString(); //get address of database
 
-      mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }); //database connection
+      await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }); //database connection
     } catch (err) {
       console.log(err);
     }

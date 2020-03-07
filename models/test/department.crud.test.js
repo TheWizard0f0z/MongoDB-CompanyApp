@@ -42,6 +42,18 @@ describe('Department', () => {
     });
   });
 
+  describe('Creating data', () => {
+    it('should insert new document with "insertOne" method', async () => {
+      const department = new Department({ name: 'Department #1' });
+      await department.save();
+      expect(department.isNew).to.be.false;
+    });
+
+    after(async () => {
+      await Department.deleteMany();
+    });
+  });
+
   after(() => {
     mongoose.models = {};
   });

@@ -89,6 +89,39 @@ describe('Department', () => {
     });
   });
 
+  describe('Removing data', () => {
+    beforeEach(async () => {
+      const testDepOne = new Department({ name: 'Department #1' });
+      await testDepOne.save();
+
+      const testDepTwo = new Department({ name: 'Department #2' });
+      await testDepTwo.save();
+    });
+
+    it('should properly remove one document with "deleteOne" method', async () => {
+      await Department.deleteOne({ name: 'Department #1' });
+      const removeDepartment = await Department.findOne({ name: 'Department #1' });
+      expect(removeDepartment).to.be.null;
+    });
+
+    it('should properly remove one document with "remove" method', async () => {
+      const department = await Department.findOne({ name: 'Department #1' });
+      await department.remove();
+      const removedDepartment = await Department.findOne({ name: 'Department #1' });
+      expect(removedDepartment).to.be.null;
+    });
+
+    it('should properly remove multiple documents with "deleteMany" method', async () => {
+      await Department.deleteMany();
+      const departments = await Department.find();
+      expect(departments.length).to.be.equal(0);
+    });
+
+    afterEach(async () => {
+      await Department.deleteMany();
+    });
+  });
+
   after(() => {
     mongoose.models = {};
   });
